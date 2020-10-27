@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import MenuBar from "./components/MenuBar";
 import { Container } from "semantic-ui-react";
 import { AuthContextProvider } from "./context/AuthContext";
+import AuthRoute from "./utils/AuthRoute";
 const client = new ApolloClient({
   uri: "http://localhost:5000",
   cache: new InMemoryCache(),
@@ -22,9 +23,10 @@ function App() {
           <Router>
             <Container>
               <MenuBar />
+
               <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
+              <AuthRoute exact path="/login" component={Login} />
+              <AuthRoute exact path="/register" component={Register} />
             </Container>
           </Router>
         </AuthContextProvider>
