@@ -32,10 +32,10 @@ const PostForm = () => {
   return (
     <>
       <Form onSubmit={onSubmit}>
-        <h2>Create a post</h2>
+        <h2>Create a ThoughtPost!</h2>
         <Form.Field>
           <Form.Input
-            placeholder="Hi World!"
+            placeholder="Post your thought!"
             name="body"
             onChange={onChange}
             value={values.body}

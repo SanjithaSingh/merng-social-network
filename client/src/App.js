@@ -16,6 +16,7 @@ import { Container } from "semantic-ui-react";
 import { AuthContextProvider } from "./context/AuthContext";
 import AuthRoute from "./utils/AuthRoute";
 import { setContext } from "apollo-link-context";
+import PostDetail from "./pages/PostDetail";
 
 const httpLink = createHttpLink({ uri: "http://localhost:5000" });
 
@@ -45,6 +46,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <AuthRoute exact path="/login" component={Login} />
               <AuthRoute exact path="/register" component={Register} />
+              <Route exact path="/posts/:postId" component={PostDetail} />
             </Container>
           </Router>
         </AuthContextProvider>
