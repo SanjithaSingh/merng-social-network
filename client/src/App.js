@@ -1,7 +1,12 @@
 import React from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -10,8 +15,21 @@ import MenuBar from "./components/MenuBar";
 import { Container } from "semantic-ui-react";
 import { AuthContextProvider } from "./context/AuthContext";
 import AuthRoute from "./utils/AuthRoute";
+import { setContext } from "apollo-link-context";
+
+const httpLink = createHttpLink({ uri: "http://localhost:5000" });
+
+const authLink = setContext(() => {
+  const token = localStorage.getItem("jwtToken");
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
 const client = new ApolloClient({
-  uri: "http://localhost:5000",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
